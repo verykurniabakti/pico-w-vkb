@@ -1,0 +1,49 @@
+import network
+import socket
+from time import sleep
+
+import machine
+import rp2
+import sys
+
+led = machine.Pin("LED",machine.Pin.OUT)
+led.off()
+led.on()
+
+ssid = 'Harapan Bersama'
+password = 'poltekharber'
+
+
+
+def connect():
+    #Connect to WLAN
+    wlan = network.WLAN(network.STA_IF)
+    wlan.active(True)
+    wlan.connect(ssid, password)
+    while wlan.isconnected() == False:
+        if rp2.bootsel_button()== 1:
+            sys.exit()
+        print('Waiting for connection...')
+        pico_led.on()
+        sleep(0.5)
+        pico_led.off()
+        sleep(0.5)
+    ip = wlan.ifconfig()[0]
+    print(f'Connected on {ip}')
+    return ip
+    pico_led.on()
+
+ip = connect()
+
+def open_socket(ip):
+    # Open a socket
+    address = (ip, 80)
+    connection = socket.socket()
+    connection.bind(address)
+    connection.listen(1)
+    return connection
+
+
+ip = connect()
+connection = open_socket(ip)
+
