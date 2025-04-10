@@ -1,0 +1,11 @@
+from machine import Pin
+import time
+
+# Ganti '16' dengan nomor pin GPIO yang terhubung ke LED Anda
+led_pin = Pin(16, Pin.OUT)
+
+while True:
+    led_pin.value(1)  # Nyalakan LED
+    time.sleep(0.5)  # Tunda 0.5 detik
+    led_pin.value(0)  # Matikan LED
+    time.sleep(0.5)  # Tunda 0.5 detik
