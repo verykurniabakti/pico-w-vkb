@@ -1,0 +1,14 @@
+from machine import Pin
+import time
+
+# Ganti '16' dengan nomor pin GPIO yang terhubung ke LED Anda
+led_pin = Pin(16, Pin.OUT)
+
+# Nyalakan LED
+led_pin.value(1)  # Set pin HIGH (3.3V)
+
+# Tunggu beberapa detik
+time.sleep(5)
+
+# Matikan LED
+led_pin.value(0)  # Set pin LOW (0V)
